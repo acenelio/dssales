@@ -37,4 +37,11 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
 			+ "AND (:genderEnum IS NULL OR obj.gender = :genderEnum) "
 			+ "GROUP BY obj.date")
 	List<SalesByDateDTO> salesByDate(LocalDate min, LocalDate max, Gender genderEnum);
+	
+	@Query("SELECT obj FROM Sale obj "
+			+ "JOIN FETCH obj.category "
+			+ "JOIN FETCH obj.paymentMethod "
+			+ "JOIN FETCH obj.store "
+			+ "WHERE obj in :sales")
+	List<Sale> salesWithOtherEntities(List<Sale> sales);
 }

@@ -24,24 +24,27 @@ public class SaleController {
 	@GetMapping(value = "/by-category")
 	public ResponseEntity<List<SalesByCategoryDTO>> salesByCategory(
 			@RequestParam(value = "minDate", defaultValue = "") String minDate,
-			@RequestParam(value = "maxDate", defaultValue = "") String maxDate) {
-		List<SalesByCategoryDTO> list = service.salesByCategory(minDate, maxDate);
+			@RequestParam(value = "maxDate", defaultValue = "") String maxDate,
+			@RequestParam(value = "gender", defaultValue = "") String gender) {
+		List<SalesByCategoryDTO> list = service.salesByCategory(minDate, maxDate, gender);
 		return ResponseEntity.ok(list);
 	}	
 	
 	@GetMapping(value = "/by-payment-method")
 	public ResponseEntity<List<SalesByPaymentMethodDTO>> salesByPaymentMethod(
 			@RequestParam(value = "minDate", defaultValue = "") String minDate,
-			@RequestParam(value = "maxDate", defaultValue = "") String maxDate) {
-		List<SalesByPaymentMethodDTO> list = service.salesByPaymentMethod(minDate, maxDate);
+			@RequestParam(value = "maxDate", defaultValue = "") String maxDate,
+			@RequestParam(value = "gender", defaultValue = "") String gender) {
+		List<SalesByPaymentMethodDTO> list = service.salesByPaymentMethod(minDate, maxDate, gender);
 		return ResponseEntity.ok(list);
 	}	
 	
 	@GetMapping(value = "/by-date")
 	public ResponseEntity<List<SalesByDateDTO>> salesByDate(
 			@RequestParam(value = "minDate", defaultValue = "") String minDate,
-			@RequestParam(value = "maxDate", defaultValue = "") String maxDate) {
-		List<SalesByDateDTO> list = service.salesByDate(minDate, maxDate);
+			@RequestParam(value = "maxDate", defaultValue = "") String maxDate,
+			@RequestParam(value = "gender", defaultValue = "") String gender) {
+		List<SalesByDateDTO> list = service.salesByDate(minDate, maxDate, gender);
 		return ResponseEntity.ok(list);
 	}	
 }

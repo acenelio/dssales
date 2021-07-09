@@ -1,5 +1,6 @@
 package com.devsuperior.dssales.services;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +19,23 @@ public class SaleService {
 	private SaleRepository repository;
 	
 	@Transactional(readOnly = true)
-	public List<SalesByCategoryDTO> salesByCategory() {
-		return repository.salesByCategory();
+	public List<SalesByCategoryDTO> salesByCategory(String minDate, String maxDate) {
+		LocalDate min = "".equals(minDate) ? null : LocalDate.parse(minDate);
+		LocalDate max = "".equals(maxDate) ? null : LocalDate.parse(maxDate);
+		return repository.salesByCategory(min, max);
 	}
 
 	@Transactional(readOnly = true)
-	public List<SalesByPaymentMethodDTO> salesByPaymentMethod() {
-		return repository.salesByPaymentMethod();
+	public List<SalesByPaymentMethodDTO> salesByPaymentMethod(String minDate, String maxDate) {
+		LocalDate min = "".equals(minDate) ? null : LocalDate.parse(minDate);
+		LocalDate max = "".equals(maxDate) ? null : LocalDate.parse(maxDate);
+		return repository.salesByPaymentMethod(min, max);
 	}
 	
 	@Transactional(readOnly = true)
-	public List<SalesByDateDTO> salesByDate() {
-		return repository.salesByDate();
+	public List<SalesByDateDTO> salesByDate(String minDate, String maxDate) {
+		LocalDate min = "".equals(minDate) ? null : LocalDate.parse(minDate);
+		LocalDate max = "".equals(maxDate) ? null : LocalDate.parse(maxDate);
+		return repository.salesByDate(min, max);
 	}
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.devsuperior.dssales.dto.SalesByCategoryDTO;
+import com.devsuperior.dssales.dto.SalesByStoreDTO;
 import com.devsuperior.dssales.dto.SalesByDateDTO;
 import com.devsuperior.dssales.dto.SalesByPaymentMethodDTO;
 import com.devsuperior.dssales.dto.SalesDTO;
@@ -31,12 +31,12 @@ public class SaleController {
 		return ResponseEntity.ok(page);
 	}
 	
-	@GetMapping(value = "/by-category")
-	public ResponseEntity<List<SalesByCategoryDTO>> salesByCategory(
+	@GetMapping(value = "/by-store")
+	public ResponseEntity<List<SalesByStoreDTO>> salesByStore(
 			@RequestParam(value = "minDate", defaultValue = "") String minDate,
 			@RequestParam(value = "maxDate", defaultValue = "") String maxDate,
 			@RequestParam(value = "gender", defaultValue = "") String gender) {
-		List<SalesByCategoryDTO> list = service.salesByCategory(minDate, maxDate, gender);
+		List<SalesByStoreDTO> list = service.salesByStore(minDate, maxDate, gender);
 		return ResponseEntity.ok(list);
 	}	
 	

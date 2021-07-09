@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.devsuperior.dssales.dto.SalesByCategoryDTO;
+import com.devsuperior.dssales.dto.SalesByStoreDTO;
 import com.devsuperior.dssales.dto.SalesByDateDTO;
 import com.devsuperior.dssales.dto.SalesByPaymentMethodDTO;
 import com.devsuperior.dssales.dto.SalesDTO;
@@ -32,11 +32,11 @@ public class SaleService {
 	}
 	
 	@Transactional(readOnly = true)
-	public List<SalesByCategoryDTO> salesByCategory(String minDate, String maxDate, String gender) {
+	public List<SalesByStoreDTO> salesByStore(String minDate, String maxDate, String gender) {
 		LocalDate min = "".equals(minDate) ? null : LocalDate.parse(minDate);
 		LocalDate max = "".equals(maxDate) ? null : LocalDate.parse(maxDate);
 		Gender genderEnum = "".equals(gender) ? null : Gender.valueOf(gender);
-		return repository.salesByCategory(min, max, genderEnum);
+		return repository.salesByStore(min, max, genderEnum);
 	}
 
 	@Transactional(readOnly = true)

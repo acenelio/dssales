@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import com.devsuperior.dssales.dto.SalesByCategoryDTO;
 import com.devsuperior.dssales.dto.SalesByDateDTO;
 import com.devsuperior.dssales.dto.SalesByPaymentMethodDTO;
+import com.devsuperior.dssales.dto.SalesSummaryDTO;
 import com.devsuperior.dssales.entities.Gender;
 import com.devsuperior.dssales.entities.Sale;
 
@@ -44,4 +45,11 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
 			+ "JOIN FETCH obj.store "
 			+ "WHERE obj in :sales")
 	List<Sale> salesWithOtherEntities(List<Sale> sales);
+	
+	@Query("SELECT new com.devsuperior.dssales.dto.SalesSummaryDTO(SUM(obj.total), MAX(obj.total), MIN(obj.total), AVG(obj.total), COUNT(obj.id)) "
+			+ "FROM Sale AS obj "
+			+ "WHERE (:min IS NULL OR obj.date >= :min) "
+			+ "AND (:max IS NULL OR obj.date <= :max) "
+			+ "AND (:genderEnum IS NULL OR obj.gender = :genderEnum) ")
+	SalesSummaryDTO salesSummary(LocalDate min, LocalDate max, Gender genderEnum);
 }

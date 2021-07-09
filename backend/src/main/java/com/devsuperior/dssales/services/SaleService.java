@@ -13,6 +13,7 @@ import com.devsuperior.dssales.dto.SalesByCategoryDTO;
 import com.devsuperior.dssales.dto.SalesByDateDTO;
 import com.devsuperior.dssales.dto.SalesByPaymentMethodDTO;
 import com.devsuperior.dssales.dto.SalesDTO;
+import com.devsuperior.dssales.dto.SalesSummaryDTO;
 import com.devsuperior.dssales.entities.Gender;
 import com.devsuperior.dssales.entities.Sale;
 import com.devsuperior.dssales.repositories.SaleRepository;
@@ -52,5 +53,13 @@ public class SaleService {
 		LocalDate max = "".equals(maxDate) ? null : LocalDate.parse(maxDate);
 		Gender genderEnum = "".equals(gender) ? null : Gender.valueOf(gender);
 		return repository.salesByDate(min, max, genderEnum);
+	}
+	
+	@Transactional(readOnly = true)
+	public SalesSummaryDTO salesSummary(String minDate, String maxDate, String gender) {
+		LocalDate min = "".equals(minDate) ? null : LocalDate.parse(minDate);
+		LocalDate max = "".equals(maxDate) ? null : LocalDate.parse(maxDate);
+		Gender genderEnum = "".equals(gender) ? null : Gender.valueOf(gender);
+		return repository.salesSummary(min, max, genderEnum);		
 	}
 }

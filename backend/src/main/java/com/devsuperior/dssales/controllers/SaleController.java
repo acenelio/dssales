@@ -15,6 +15,7 @@ import com.devsuperior.dssales.dto.SalesByCategoryDTO;
 import com.devsuperior.dssales.dto.SalesByDateDTO;
 import com.devsuperior.dssales.dto.SalesByPaymentMethodDTO;
 import com.devsuperior.dssales.dto.SalesDTO;
+import com.devsuperior.dssales.dto.SalesSummaryDTO;
 import com.devsuperior.dssales.services.SaleService;
 
 @RestController
@@ -55,5 +56,14 @@ public class SaleController {
 			@RequestParam(value = "gender", defaultValue = "") String gender) {
 		List<SalesByDateDTO> list = service.salesByDate(minDate, maxDate, gender);
 		return ResponseEntity.ok(list);
+	}	
+	
+	@GetMapping(value = "/summary")
+	public ResponseEntity<SalesSummaryDTO> salesSummary(
+			@RequestParam(value = "minDate", defaultValue = "") String minDate,
+			@RequestParam(value = "maxDate", defaultValue = "") String maxDate,
+			@RequestParam(value = "gender", defaultValue = "") String gender) {
+		SalesSummaryDTO obj = service.salesSummary(minDate, maxDate, gender);
+		return ResponseEntity.ok(obj);
 	}	
 }

@@ -38,7 +38,7 @@ public class SaleController {
 			@RequestParam(value = "gender", defaultValue = "") String gender) {
 		List<SalesByStoreDTO> list = service.salesByStore(minDate, maxDate, gender);
 		return ResponseEntity.ok(list);
-	}	
+	}
 	
 	@GetMapping(value = "/by-payment-method")
 	public ResponseEntity<List<SalesByPaymentMethodDTO>> salesByPaymentMethod(

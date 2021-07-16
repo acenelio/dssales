@@ -26,8 +26,12 @@ public class SaleController {
 	private SaleService service;
 	
 	@GetMapping
-	public ResponseEntity<Page<SalesDTO>> sales(Pageable pageable) {
-		Page<SalesDTO> page = service.sales(pageable);
+	public ResponseEntity<Page<SalesDTO>> sales(
+			@RequestParam(value = "minDate", defaultValue = "") String minDate,
+			@RequestParam(value = "maxDate", defaultValue = "") String maxDate,
+			@RequestParam(value = "gender", defaultValue = "") String gender,
+			Pageable pageable) {
+		Page<SalesDTO> page = service.sales(minDate, maxDate, gender, pageable);
 		return ResponseEntity.ok(page);
 	}
 	

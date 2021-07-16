@@ -25,8 +25,11 @@ public class SaleService {
 	private SaleRepository repository;
 	
 	@Transactional(readOnly = true)
-	public Page<SalesDTO> sales(Pageable pageable) {
-		Page<Sale> page = repository.findAll(pageable);
+	public Page<SalesDTO> sales(String minDate, String maxDate, String gender, Pageable pageable) {
+		LocalDate min = "".equals(minDate) ? null : LocalDate.parse(minDate);
+		LocalDate max = "".equals(maxDate) ? null : LocalDate.parse(maxDate);
+		Gender genderEnum = "".equals(gender) ? null : Gender.valueOf(gender);
+		Page<Sale> page = repository.searchPage(min, max, genderEnum, pageable);
 		repository.salesWithOtherEntities(page.getContent());
 		return page.map(x -> new SalesDTO(x));
 	}

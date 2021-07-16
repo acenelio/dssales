@@ -3,6 +3,8 @@ package com.devsuperior.dssales.repositories;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -52,4 +54,11 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
 			+ "AND (CAST(:max AS date) IS NULL OR obj.date <= CAST(:max AS date)) "
 			+ "AND (:genderEnum IS NULL OR obj.gender = :genderEnum) ")
 	SalesSummaryDTO salesSummary(LocalDate min, LocalDate max, Gender genderEnum);
+
+	@Query("SELECT obj "
+			+ "FROM Sale AS obj "
+			+ "WHERE (CAST(:min AS date) IS NULL OR obj.date >= CAST(:min AS date)) "
+			+ "AND (CAST(:max AS date) IS NULL OR obj.date <= CAST(:max AS date)) "
+			+ "AND (:genderEnum IS NULL OR obj.gender = :genderEnum) ")
+	Page<Sale> searchPage(LocalDate min, LocalDate max, Gender genderEnum, Pageable pageable);
 }
